@@ -3,7 +3,7 @@ const { Client, Intents } = require('discord.js');
 //récupérer la configuration qui contient les variables d'environnement
 require('dotenv').config({ path: "./config/config.env"});
 //récupérer le tokken dans les variables d'environement 
-const TOKKEN = process.env.TOKKEN;
+const TOKEN = process.env.TOKEN;
 
 //créer une nouvelle instance du client
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
@@ -14,4 +14,4 @@ client.once('ready', ()=>{
 })
 
 //se connecter à discord avec le tokken
-client.login(TOKKEN);
+client.login(TOKEN);

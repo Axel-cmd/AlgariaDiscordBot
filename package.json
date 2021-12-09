@@ -4,8 +4,9 @@
   "description": "Algaria's discord bot",
   "main": "index.js",
   "scripts": {
-    "start:developpement": "nodemon index",
     "start": "node index.js",
+    "start:dev": "nodemon index",
+    "deploy:command": "node deploy-commands.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

@@ -1,5 +1,3 @@
-/** @format */
-
 const Command = require('../structures/command.js');
 
 module.exports = new Command({

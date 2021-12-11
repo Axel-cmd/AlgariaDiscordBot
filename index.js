@@ -2,18 +2,27 @@
 const fs = require('fs');
 //importer des fonctions du package discord.js
 const { Client, Intents, Collection } = require('discord.js');
+// const msgCommand = require('./data/messageCommand.js');
 //récupérer la configuration qui contient les variables d'environnement
-require('dotenv').config({ path: "./config/config.env"});
+require('dotenv').config({ path: "./data/config.env"});
 //récupérer le tokken dans les variables d'environement 
 const TOKEN = process.env.TOKEN;
 
 //créer une nouvelle instance du client
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] })
+const client = new Client({ intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MEMBERS//important pour détecter l'arrivé de nouveaux membres
+] })
 
-//attaché une propriété .commands à l'instance client pour qu'on puisse accéder au commandes des atre fichier
+//attaché une propriété .commands à l'instance client pour qu'on puisse accéder au commandes des autres fichiers
 client.commands = new Collection();
+client.messageCommands = new Collection();
+
 //cette méthode permet de récupérer dans un tableau les noms de tout les fichier dans le dossier /commands en appliquant un filtre pour récupérer uniquement les fichiers finissant par .js
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const eventFiles = fs.readdirSync(`./events`).filter(file => file.endsWith('.js'));
+// const messageCommandFiles = fs.readdirSync('./messageCommands').filter(file => file.endsWith('.js'));
 
 for (const file of commandFiles){
     //importer un fichier
@@ -23,13 +32,16 @@ for (const file of commandFiles){
     client.commands.set(command.data.name, command);
 }
 
-//quand le client est pret on effectue le code (se lance une seul fois)
-client.once('ready', ()=>{
-    console.log('Bot is ready !');
-})
+for(const file of eventFiles){
+    const event = require(`./events/${file}`);
+    if(event.once){
+        client.once(event.name, (...args) => event.execute(...args));
+    }else{
+        client.on(event.name, (...args) => event.execute(...args));
+    }
+}
 
 
-/*****Ajouter les commandes  *****/
 
 client.on('interactionCreate', async interaction=>{
     //vérifier si l'interaction est bien une commande avec la fonction isCommand()

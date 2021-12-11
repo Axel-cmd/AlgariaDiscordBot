@@ -9,10 +9,10 @@ const { Routes } = require('discord-api-types/v9');
 const clientId = process.env.CLIENTID; //clientId du bot récupérable sur l'interface développeur dans 0Auth2/general
 const guildId = process.env.GUILDID;//l'id du serveur discord
 const token = process.env.TOKEN;
+
 //définir les commandes sur le serveur 
 const commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
-
 for(const file of commandFiles){
 	const command = require(`./commands/${file}`);
 	commands.push(command.data.toJSON());

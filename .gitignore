@@ -76,4 +76,4 @@ typings/
 .fusebox/
 
 # .env 
-/config/config.env
+/data/config.env

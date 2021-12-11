@@ -77,3 +77,4 @@ typings/
 
 # .env 
 /data/configuration.json
+src/data/configuration.json

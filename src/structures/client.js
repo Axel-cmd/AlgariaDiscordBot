@@ -18,7 +18,8 @@ class Client extends Discord.Client{
          * @type {Discord.Collection<string, Command>}
          */
         this.commands = new Discord.Collection();
-
+        
+        //prefix récupérer dans la configuration 
         this.prefix = configuration.prefix;
     }
 

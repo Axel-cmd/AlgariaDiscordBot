@@ -33,6 +33,7 @@ class Client extends Discord.Client{
                  * @type {Command}
                  */
                 const command = require(`../commands/${file}`);
+                // console.log(`La commande ${command.name} est bien chargé`);
                 //ajouter l'élément dans la collection
                 this.commands.set(command.name, command);
             });
@@ -45,6 +46,8 @@ class Client extends Discord.Client{
                  * @type {Event}
                  */
                 const event = require(`../events/${file}`);
+                // console.log(`L'event ${event.event} est bien chargé`)
+                //créer l'évenement avec le nom de l'évenement et sa fonction run à laquelle on passe this pour qu'elle puisse garder son contexte 
                 this.on(event.event, event.run.bind(null, this));
             });
 

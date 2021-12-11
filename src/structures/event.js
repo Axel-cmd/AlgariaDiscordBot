@@ -20,7 +20,7 @@ class Event{
      */
     constructor(event, runFunction){
         this.event = event;
-        this.runFuntion = runFunction;
+        this.run = runFunction;
     }
 }
 

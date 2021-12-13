@@ -11,7 +11,7 @@ const intents = new Discord.Intents(32767);
 //classe client qui override la classe de base 
 class Client extends Discord.Client{
     constructor(){
-        super({ intents });
+        super({ intents, allowedMentions: { repliedUser: false} });//repliedUser permet d'activer ou désactiver le ping bot lors d'une commande 
 
         /**
          * attaché une propriété .commands à l'instance client pour qu'on puisse accéder au commandes des autres fichiers

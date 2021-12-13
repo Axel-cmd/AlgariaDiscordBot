@@ -3,6 +3,7 @@ const Command = require('../structures/command.js');
 module.exports = new Command({
     name: "user",
     description: "Info sur l'utilisateur",
+    permission: "SEND_MESSAGES",
     async run(message, args, client){
         
         if(!message.author) return;

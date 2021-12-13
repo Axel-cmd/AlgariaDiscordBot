@@ -2,9 +2,8 @@ const Event = require('../structures/event');
 const Discord = require('discord.js');
 const configuration = require('../data/configuration.json');
 
-module.exports = new Event("guildMemberAdd", member =>{
+module.exports = new Event("guildMemberAdd", (client, member) =>{
     
-    // console.log(member);
     const channel = member.guild.channels.cache.find(c=> c.name == configuration.welcomQuitChannel);
 
     if(!channel) return;

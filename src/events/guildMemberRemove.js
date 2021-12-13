@@ -2,9 +2,9 @@ const Event = require('../structures/event.js');
 const Discord = require("discord.js");
 const configuration = require('../data/configuration.json');
 
-module.exports = new Event("guildMemberRemove",  member => {
+module.exports = new Event("guildMemberRemove", (client, member) => {
     //récupérer le channel à l'aide du nom 
-    console.log(member.guild)
+    // console.log(member.guild)
     const channel = member.guild.channels.cache.find(c=> c.name == configuration.welcomQuitChannel);
 
     if(!channel) return;

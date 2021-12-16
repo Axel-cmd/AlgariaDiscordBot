@@ -22,16 +22,18 @@ class Client extends Discord.Client {
          * attaché une propriété .commands à l'instance client pour qu'on puisse accéder au commandes des autres fichiers
          * @type {Discord.Collection<string, Command>}
          */
-        this.commands = new Discord.Collection();
+        this.commandsCollection = new Discord.Collection();
 
         //prefix récupérer dans la configuration 
-        this.prefix = configuration.prefix;
+        this.commandPrefix = configuration.prefix;
     }
 
+    /**
+     * @param {string} token 
+     */
     start(token) {
         //utiliser fs pour récupérer un tableau des fichiers dans le fichier commands 
         //en appliquant un filtre a la fin du nom de fichier 
-        //puis on les parcours pour effectuer des actions avec chaque fichier
         fs.readdirSync('./src/commands')
             .filter(file => file.endsWith('.js'))
             .forEach(file => {
@@ -41,7 +43,7 @@ class Client extends Discord.Client {
                 const command = require(`../commands/${file}`);
                 // console.log(`La commande ${command.name} est bien chargé`);
                 //ajouter l'élément dans la collection
-                this.commands.set(command.name, command);
+                this.commandsCollection.set(command.name, command);
             });
 
         //récupérer tous les fichiers evenements dans le dossier events 

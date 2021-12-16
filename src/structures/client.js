@@ -3,27 +3,32 @@ const Command = require('./command.js');
 const Event = require('./event.js');
 
 const configuration = require('../data/configuration.json');
- //un système de fichier natif
+//un système de fichier natif
 const fs = require('fs');
 //permet de s'abonner à des groupes d'évenement sur la websocket 
 const intents = new Discord.Intents(32767);
 
 //classe client qui override la classe de base 
-class Client extends Discord.Client{
-    constructor(){
-        super({ intents, allowedMentions: { repliedUser: false} });//repliedUser permet d'activer ou désactiver le ping bot lors d'une commande 
+class Client extends Discord.Client {
+    constructor() {
+        super({
+            intents,
+            allowedMentions: {
+                repliedUser: false
+            }
+        }); //repliedUser permet d'activer ou désactiver le ping bot lors d'une commande 
 
         /**
          * attaché une propriété .commands à l'instance client pour qu'on puisse accéder au commandes des autres fichiers
          * @type {Discord.Collection<string, Command>}
          */
         this.commands = new Discord.Collection();
-        
+
         //prefix récupérer dans la configuration 
         this.prefix = configuration.prefix;
     }
 
-    start(token){
+    start(token) {
         //utiliser fs pour récupérer un tableau des fichiers dans le fichier commands 
         //en appliquant un filtre a la fin du nom de fichier 
         //puis on les parcours pour effectuer des actions avec chaque fichier

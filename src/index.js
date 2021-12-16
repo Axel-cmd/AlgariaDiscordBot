@@ -6,4 +6,3 @@ const configuration = require('./data/configuration.json');
 //créer une nouvelle instance du client
 const client = new Client();
 client.start(configuration.token);
-

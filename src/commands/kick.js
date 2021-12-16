@@ -1,5 +1,8 @@
 const Command = require('../structures/command.js');
 
+// TODO gerer le kick de plusieurs personne ping 
+
+
 module.exports = new Command({
     name: "kick",
     description:  "Command to kick someone",
